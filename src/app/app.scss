@@ -1,0 +1,255 @@
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* ===== Page layout ===== */
+.component {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+
+  background-image: url('/images/bg-mobile.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+}
+
+.cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+/* ===== Cards ===== */
+.card {
+  background-color: var(--blue-850);
+  border-radius: 10px;
+  padding: 2.5rem;
+  width: 100%;
+  max-width: 350px;
+}
+
+.card--logo {
+  border-top-right-radius: 100px;
+}
+
+.logo {
+  display: block;
+  width: auto;
+  height: 2.5rem;
+}
+
+/* ===== Quick action buttons ===== */
+.actions {
+  list-style: none;
+  display: flex;
+  gap: 1rem;
+  margin-top: 2rem;
+}
+
+.action {
+  display: grid;
+  place-items: center;
+  width: 3.125rem;
+  height: 3.125rem;
+  border-radius: 10px;
+  background-color: var(--blue-950);
+  transition: transform 0.15s ease;
+
+  &:hover {
+    transform: translateY(-3px);
+  }
+}
+
+/* ===== Storage card ===== */
+.card--storage {
+  position: relative;
+  margin-top: 0.5rem;
+  padding-bottom: 3.5rem; /* room for the overlapping badge on mobile */
+}
+
+.storage__text {
+  text-align: center;
+
+  strong {
+    font-weight: 700;
+  }
+}
+
+/* ===== Meter (progress bar) ===== */
+.meter {
+  margin-top: 1rem;
+  height: 20px;
+  border-radius: 999px;
+  background-color: hsl(229, 57%, 8%);
+  padding: 3px;
+}
+
+.meter__fill {
+  display: block;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(to right, var(--grad-start), var(--grad-end));
+  position: relative;
+  min-width: 20px;
+  transition: width 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.meter__handle {
+  position: absolute;
+  top: 50%;
+  right: 3px;
+  transform: translateY(-50%);
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background-color: #fff;
+  animation: handle-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes handle-pulse {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 hsl(335 100% 65% / 0.55);
+  }
+  50% {
+    box-shadow: 0 0 0 6px hsl(335 100% 65% / 0);
+  }
+}
+
+.meter__labels {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 0.6rem;
+  font-weight: 700;
+  color: var(--blue-200);
+}
+
+/* ===== Remaining badge ===== */
+.remaining {
+  position: absolute;
+  left: 50%;
+  bottom: -1.5rem;
+  transform: translateX(-50%);
+
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+
+  background-color: #fff;
+  color: var(--blue-950);
+  border-radius: 10px;
+  padding: 0.75rem 1.5rem;
+  white-space: nowrap;
+}
+
+.remaining__value {
+  font-size: 2.5rem;
+  font-weight: 700;
+  line-height: 1;
+}
+
+.remaining__unit {
+  color: var(--grayish-blue);
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+/* ===== Attribution ===== */
+.attribution {
+  font-size: 0.75rem;
+  text-align: center;
+  padding: 1rem;
+  color: var(--grayish-blue);
+
+  a {
+    color: var(--grad-end);
+    font-weight: 600;
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+/* Respect users who prefer less motion. */
+@media (prefers-reduced-motion: reduce) {
+  .meter__fill {
+    transition: none;
+  }
+
+  .meter__handle {
+    animation: none;
+  }
+
+  .action {
+    transition: none;
+  }
+}
+
+/* ===== Desktop ===== */
+@media (min-width: 940px) {
+  .component {
+    background-image: url('/images/bg-desktop.png');
+    background-position: bottom;
+    background-size: contain;
+  }
+
+  .cards {
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 1.875rem;
+    max-width: 920px;
+  }
+
+  .card--logo {
+    flex: 0 0 350px;
+  }
+
+  .card--storage {
+    flex: 1 1 auto;
+    max-width: 540px;
+    margin-top: 0;
+    padding-bottom: 2.5rem;
+  }
+
+  .storage__text {
+    text-align: left;
+  }
+
+  /* Badge floats to the top-right of the storage card */
+  .remaining {
+    left: auto;
+    right: 2.5rem;
+    top: -2.75rem;
+    bottom: auto;
+    transform: none;
+    border-bottom-right-radius: 0;
+  }
+
+  /* Triangle notch pointing down toward the card */
+  .remaining::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    bottom: -1.375rem;
+    border: 0.6875rem solid transparent;
+    border-top-color: #fff;
+    border-right-color: #fff;
+  }
+
+  .attribution {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+  }
+}

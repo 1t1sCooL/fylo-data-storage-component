@@ -1,0 +1,56 @@
+<main class="component">
+  <div class="cards">
+  <!-- Left card: logo + quick actions -->
+  <section class="card card--logo">
+    <img class="logo" src="images/logo.svg" alt="Fylo" width="135" height="40" />
+
+    <ul class="actions">
+      @for (link of links; track link.label) {
+        <li>
+          <a class="action" href="#" [attr.aria-label]="link.label">
+            <img [src]="link.icon" alt="" width="24" height="24" />
+          </a>
+        </li>
+      }
+    </ul>
+  </section>
+
+  <!-- Right card: storage meter -->
+  <section class="card card--storage">
+    <p class="storage__text">
+      You've used <strong>{{ usedGb() }} GB</strong> of your storage
+    </p>
+
+    <div
+      class="meter"
+      role="progressbar"
+      [attr.aria-valuenow]="usedGb()"
+      aria-valuemin="0"
+      [attr.aria-valuemax]="totalGb()"
+      aria-label="Storage used"
+    >
+      <span class="meter__fill" [style.width]="barWidth()">
+        <span class="meter__handle"></span>
+      </span>
+    </div>
+
+    <div class="meter__labels">
+      <span>0 GB</span>
+      <span>{{ totalGb() }} GB</span>
+    </div>
+
+    <div class="remaining" aria-live="polite">
+      <span class="remaining__value">{{ displayLeft() }}</span>
+      <span class="remaining__unit">GB Left</span>
+    </div>
+  </section>
+  </div>
+</main>
+
+<footer>
+  <p class="attribution">
+    Challenge by
+    <a href="https://www.frontendmentor.io?ref=challenge" target="_blank">Frontend Mentor</a>.
+    Coded by <a href="https://www.frontendmentor.io/profile/1t1sCooL">1t1sCooL</a>.
+  </p>
+</footer>

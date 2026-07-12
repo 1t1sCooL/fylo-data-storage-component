@@ -1,0 +1,12 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fylo-data-storage-component
+  namespace: default
+spec:
+  selector:
+    app: fylo-data-storage-component-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: ClusterIP
